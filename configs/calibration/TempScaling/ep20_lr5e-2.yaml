@@ -1,0 +1,6 @@
+CALIBRATION:
+  SCALING:
+    MODE: TempScaling
+    INIT_TEMP: 4.6052
+    EPOCH: 20
+    LR: 0.05
