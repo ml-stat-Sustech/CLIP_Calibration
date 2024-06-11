@@ -70,7 +70,6 @@ def results_to_csv(args, directory, key, results):
 
 def base2new_results_to_csv(args, directory, key, results):
 
-    # 从directory字符串中提取信息
     parts = directory.split("/")
     split = parts[2]
     dataset = parts[3]

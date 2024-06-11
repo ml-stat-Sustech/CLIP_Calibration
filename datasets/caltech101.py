@@ -60,29 +60,4 @@ class Caltech101(DatasetBase):
         print(len(test))
         train, val, test = OxfordPets.subsample_classes(train, val, test, subsample=subsample)
 
-        # print(train)
-        # print(len(val))
-        # print(len(test))
-
-        # # 假设 train 是一个包含 Datum 对象的列表
-        # classes = [sample._classname for sample in train]
-        # # 使用 set() 函数获取唯一的类别
-        # unique_classes = set(classes)
-        # # 打印所有类别
-        # print("Train All Classes:", unique_classes)
-
-        # # 假设 train 是一个包含 Datum 对象的列表
-        # classes = [sample._classname for sample in val]
-        # # 使用 set() 函数获取唯一的类别
-        # unique_classes = set(classes)
-        # # 打印所有类别
-        # print("Val All Classes:", unique_classes)
-
-        # # 假设 train 是一个包含 Datum 对象的列表
-        # classes = [sample._classname for sample in test]
-        # # 使用 set() 函数获取唯一的类别
-        # unique_classes = set(classes)
-        # # 打印所有类别
-        # print("Test All Classes:", unique_classes)
-
         super().__init__(train_x=train, val=val, test=test)

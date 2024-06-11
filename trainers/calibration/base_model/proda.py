@@ -170,8 +170,6 @@ class PromptLearner(nn.Module):
         n_end = ctx_end.shape[0]
 
 
-
-        # 将 prefix 和 suffix 张量移动到与 ctx_end 张量相同的设备上
         prefix = self.token_prefix.unsqueeze(1).repeat(1, n_end, 1, 1).to(device)
         suffix = self.token_suffix.unsqueeze(1).repeat(1, n_end, 1, 1).to(device)
         ctx_end = ctx_end.unsqueeze(0).repeat(n_cls, 1, 1, 1).to(device)
@@ -216,7 +214,7 @@ class PromptLearner(nn.Module):
             prompts_front.append(prompt)
         prompts_front = torch.cat(prompts_front, dim=0)
 
-        prompts = torch.cat([prompts_end,prompts_middle, prompts_front], dim=1).view(prompt_size*n_cls, -1, self.ctx_dim) # 三倍的prompt
+        prompts = torch.cat([prompts_end,prompts_middle, prompts_front], dim=1).view(prompt_size*n_cls, -1, self.ctx_dim)
         
         if infer:
             return prompts, tokenized_prompts
@@ -303,6 +301,6 @@ class CustomCLIP(nn.Module):
         n_dim = text_features.shape[-1]
         text_features = text_features / text_features.norm(dim=-1, keepdim=True)
         text_features = text_features.view(self.n_class, self.n_prompt, -1)
-        text_features = text_features.mean(dim=1) # 简单地使用权重分布的平均值进行分类效果很好
+        text_features = text_features.mean(dim=1) 
         self.text_features = text_features
 

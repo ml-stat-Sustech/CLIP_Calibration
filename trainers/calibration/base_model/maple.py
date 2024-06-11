@@ -118,7 +118,7 @@ class MultiModalPromptLearner(nn.Module):
 
         
         for single_para in self.compound_prompts_text:
-            nn.init.normal_(single_para, std=0.02) # 初始化
+            nn.init.normal_(single_para, std=0.02)
         # Also make corresponding projection layers, for each prompt
         single_layer = nn.Linear(ctx_dim, 768)
         self.compound_prompt_projections = _get_clones(single_layer, self.compound_prompts_depth - 1) # (depth- 1) * (512, 768)
@@ -178,7 +178,7 @@ class MultiModalPromptLearner(nn.Module):
         # prompts to 768 for the visual side
         visual_deep_prompts = []
         for index, layer in enumerate(self.compound_prompt_projections):
-            visual_deep_prompts.append(layer(self.compound_prompts_text[index])) # 每层text layer送到visual layer中
+            visual_deep_prompts.append(layer(self.compound_prompts_text[index]))
         # Now the other way around
         # We will project the textual prompts from 512 to 768
         return prompts, self.proj(self.ctx), self.compound_prompts_text, visual_deep_prompts   # pass here original, as for visual 768 is required

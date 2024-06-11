@@ -43,15 +43,14 @@ def get_base_model(cfg, classnames):
 
 
 def count_unique_labels_in_dataloader(dataloader):
-    # 使用集合来存储不同的标签
+
     unique_labels = set()
 
-    # 遍历 DataLoader 中的数据并记录不同的标签
+
     for batch in dataloader:
-        labels = batch[1]  # 假设标签在每个 batch 的第二个元素
+        labels = batch[1] 
         unique_labels.update(labels.tolist())
 
-    # 统计不同标签的个数
     num_unique_labels = len(unique_labels)
 
     return num_unique_labels

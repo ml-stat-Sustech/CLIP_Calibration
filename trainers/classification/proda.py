@@ -210,7 +210,7 @@ class PromptLearner(nn.Module):
             prompts_front.append(prompt)
         prompts_front = torch.cat(prompts_front, dim=0)
 
-        prompts = torch.cat([prompts_end,prompts_middle, prompts_front], dim=1).view(prompt_size*n_cls, -1, self.ctx_dim) # 三倍的prompt
+        prompts = torch.cat([prompts_end,prompts_middle, prompts_front], dim=1).view(prompt_size*n_cls, -1, self.ctx_dim)
         
         if infer:
             return prompts, tokenized_prompts
@@ -272,7 +272,7 @@ class CustomCLIP(nn.Module):
             text_features = self.text_encoder(text_prompt, tokenized_prompts)
             text_features = text_features / text_features.norm(dim=-1, keepdim=True)
             text_features = text_features.view(n_class, n_prompt, -1)
-            text_mean = text_features.mean(dim=1) #获得均值
+            text_mean = text_features.mean(dim=1)
 
             logit_scale = self.logit_scale.exp()
             # logit_scale = 160
@@ -281,7 +281,7 @@ class CustomCLIP(nn.Module):
             batch_size = label.shape[0]
             
             text_features = text_features - text_mean.unsqueeze(1)
-            diag_cov_martix = text_features.permute(2,0,1) @ text_features.permute(2,1,0) # 得到协方差矩阵
+            diag_cov_martix = text_features.permute(2,0,1) @ text_features.permute(2,1,0)
             diag_cov_martix /= n_prompt + 1
             refined_logits = torch.einsum("bd, dik -> bik", [image_features**2, diag_cov_martix])
 
@@ -297,7 +297,7 @@ class CustomCLIP(nn.Module):
             nc_text_features = self.text_encoder(nc_prompts, nc_tokenized_prompts)
             nc_text_features = nc_text_features / nc_text_features.norm(dim=-1, keepdim=True)
             dis = nc_text_features @ nc_text_features.permute(1, 0)
-            loss_m = dis[~torch.eye(self.n_prompt, dtype=torch.bool, device='cuda')].abs().mean() #排除对角线上的元素
+            loss_m = dis[~torch.eye(self.n_prompt, dtype=torch.bool, device='cuda')].abs().mean()
 
             loss = loss_upper + alpha * loss_m
 
@@ -327,7 +327,7 @@ class CustomCLIP(nn.Module):
         n_dim = text_features.shape[-1]
         text_features = text_features / text_features.norm(dim=-1, keepdim=True)
         text_features = text_features.view(self.n_class, self.n_prompt, -1)
-        text_features = text_features.mean(dim=1) # 简单地使用权重分布的平均值进行分类效果很好
+        text_features = text_features.mean(dim=1)
         self.text_features = text_features
 
 

@@ -293,7 +293,7 @@ class TempScaling(VLBaseLearner):
             state_dict_ = {}
             for key, value in state_dict.items():
                 print(key,'keys in calibration model')
-                new_key = f'scale_learner.{key}'  # 在每个 key 前添加 'scale_learner'
+                new_key = f'scale_learner.{key}'
                 state_dict_[new_key] = value
                 
             # set strict=False

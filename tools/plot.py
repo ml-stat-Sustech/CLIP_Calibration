@@ -143,7 +143,7 @@ def plot_proximity_acc_ece(proximity, pred, label, conf, save_dir):
         os.makedirs(save_dir)
 
     # Sort by proximity
-    sorted_indices = np.argsort(proximity) # 从小到大
+    sorted_indices = np.argsort(proximity)
     pred = pred[sorted_indices]
     label = label[sorted_indices]
     conf = conf[sorted_indices]
@@ -229,16 +229,14 @@ def plot_proximity_acc_ece(proximity, pred, label, conf, save_dir):
 
 def reliability_diagram(preds, confs, labels, n_bins = 10, title = None):
 
-    # 计算bin_acc和ece
     bins = np.linspace(0, 1, n_bins+1)
     bin_indices = np.digitize(confs, bins) - 1
 
     bin_acc = []
     bin_confidences = []
     for i in range(n_bins):
-        # 找到属于当前区间的预测
+
         in_bin = bin_indices == i
-        # 计算此区间的精度
         if np.sum(in_bin) > 0:
             accuracy = np.mean(labels[in_bin] == preds[in_bin])
             mean_confidence = np.mean(confs[in_bin])
@@ -248,15 +246,12 @@ def reliability_diagram(preds, confs, labels, n_bins = 10, title = None):
         bin_acc.append(accuracy)
         bin_confidences.append(mean_confidence)
 
-    # 将列表转为numpy数组以方便处理
     bin_acc = np.array(bin_acc)
     bin_confidences = np.array(bin_confidences)
 
-    # 计算每个区间的ECE，并将其累加得到总的ECE
     weights = np.histogram(confs, bins)[0] / len(confs)
     ece = np.sum(weights * np.abs(bin_confidences - bin_acc))
 
-    #画图
     delta = 1.0/n_bins
     x = np.arange(0,1,delta)
     mid = np.linspace(delta/2,1-delta/2,n_bins)
