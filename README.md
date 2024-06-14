@@ -33,8 +33,8 @@ Please refer to ``./run`` for more info about our scripts.
 
 ```bash
 GPU_ID=1 # replace it with your GPU ID
-bash run/classfication/zeroshot.sh ${GPU_ID} # zero-shot CLIP
-bash run/classfication/fewshot.sh ${GPU_ID} # fine-tuned CLIP
+bash run/classification/zeroshot.sh ${GPU_ID} # zero-shot CLIP
+bash run/classification/fewshot.sh ${GPU_ID} # fine-tuned CLIP
 ```
 
 

@@ -166,7 +166,7 @@ class VLCalibration():
 
         """
 
-        print('build task difficulity aware calibrator for open-vocabulary classfication')
+        print('build task difficulity aware calibrator for open-vocabulary classification')
 
         base_text_features_zs = text_feature_dict['base_text_features_zs']
         current_text_features_zs = text_feature_dict['current_text_features_zs']

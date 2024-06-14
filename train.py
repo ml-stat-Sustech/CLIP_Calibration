@@ -94,7 +94,7 @@ def reset_cfg(cfg, args):
     if args.head:
         cfg.MODEL.HEAD.NAME = args.head
 
-    # replace base classfication evaluator with V-L evaluator
+    # replace base classification evaluator with V-L evaluator
     cfg.TEST.EVALUATOR = 'VLClassification'
 
     # calibration 
