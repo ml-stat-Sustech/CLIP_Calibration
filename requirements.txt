@@ -1,3 +1,7 @@
 ftfy==6.1.1
 regex
 tqdm
+packaging
+matplotlib
+netcal
+statsmodels 
